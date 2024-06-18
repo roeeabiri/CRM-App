@@ -1,6 +1,3 @@
-# CRM-App
-Revolutionize your business relationships with our cutting-edge CRM app. Streamline communication, boost productivity, and cultivate meaningful connections effortlessly. Unlock insights, track progress, and seize opportunities with intuitive analytics. Elevate your customer experience and watch your business thrive with our innovative CRM solution.
-
 # 3d party libraries required: 
 
 - React: ^18.3.1 (latest stable, at least React 16.x)
