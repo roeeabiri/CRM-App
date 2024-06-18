@@ -1,0 +1,97 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
+.company-info {
+  width: 100%; /* Take up full width */
+  max-width: 1200px;
+  padding: 20px;
+  background-color: #ffffff; /* White background */
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for better visibility */
+  margin-top: 30px; /* Margin from the top */
+  animation: fadeInAnimation ease 3s; /* Fade in effect */
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards; /* Keep the element visible after animation ends */
+}
+
+/* Fade In Animation */
+@keyframes fadeInAnimation {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Section Styles */
+.company-info .crm-data,
+.company-info .kaligon-company {
+  margin-bottom: 30px;
+}
+
+.company-info h3 {
+  font-family: 'Montserrat', sans-serif;
+  color: #005755; /* Header color */
+  font-size: 24px;
+  font-weight: 700; /* Bold font weight */
+}
+
+.company-info p {
+  font-family: 'Roboto', sans-serif;
+  color: #000000; /* Darker text color */
+  line-height: 1.6; /* Line height for better readability */
+}
+
+/* Strong Text Styles */
+.company-info strong {
+  color: #005755; /* Strong text color to match headers */
+}
+
+/* Adjustments for Mobile Devices */
+@media (max-width: 768px) {
+  .company-info {
+    width: 90%;
+    margin-top: 0; /* Align to the top for mobile devices */
+  }
+}
+
+.contact-us {
+  margin-bottom: 30px; /* Consistent with other sections */
+}
+
+.contact-us h4 {
+  font-family: 'Montserrat', sans-serif;
+  color: #005755;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.contact-us p {
+  font-family: 'Roboto', sans-serif;
+  color: #333333;
+  line-height: 1.6;
+}
+
+.contact-us p a {
+  margin: 0 5px; /* Adds horizontal spacing around the link */
+  border: 2px solid #005755; /* Add border to give it a button-like appearance */
+  padding: 6px 20px; /* Adjust padding to make links thinner */
+  border-radius: 8px; /* Add border-radius for button shape */
+  text-decoration: none;
+  background-color: #005755; /* Background color of the links */
+  color: #ffffff; /* White text for contrast */
+  border: 2px solid #005755; /* Add border to give it a button-like appearance */
+  padding: 6px 20px; /* Adjust padding to make links thinner */
+  border-radius: 8px; /* Add border-radius for button shape */
+  transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out, transform 0.4s ease-in-out; /* Smooth transition for hover effects */
+}
+
+.contact-us p a:hover {
+  background-color: #004242; /* Darker shade for background on hover */
+  color: #ffffff; /* Change text color on hover */
+  transform: scale(1.1); /* Enlarge link on hover */
+  text-decoration: none; /* Remove underline on hover */
+}
+
+.contact-us p a:active {
+  transform: translateY(1px); /* Slight downward shift on click */
+  transition: transform 0.03s; /* Faster transition duration */
+}

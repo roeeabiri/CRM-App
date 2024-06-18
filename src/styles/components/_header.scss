@@ -1,0 +1,85 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
+/* Header Styles */
+header {
+  background-color: white;
+  padding: 15px;
+  border-radius: 15px;
+  width: fit-content;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 100px;
+  margin-top: 110px; /* Set margin from the top */
+  margin-left: auto; /* Center horizontally */
+  margin-right: auto; /* Center horizontally */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center children horizontally */
+}
+
+header h1 {
+  font-weight: bold;
+  margin-bottom: 25px;
+  color: #005755;
+  font-size: 30px;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+  padding: 0 15px;
+}
+
+/* Navigation Styles */
+header div {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+header div a {
+  background-color: #005755;
+  color: #ffffff;
+  text-decoration: none;
+  border: 2px solid #005755;
+  padding: 6px 20px;
+  border-radius: 8px;
+  transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out, transform 0.4s ease-in-out;
+}
+
+header div a:hover {
+  background-color: #004242;
+  color: #ffffff;
+  transform: scale(1.1);
+  text-decoration: none;
+}
+
+header div a:active {
+  transform: translateY(1px);
+  transition: transform 0.03s;
+}
+
+/* Button Styles */
+header button {
+  background-color: #005755;
+  color: #ffffff;
+  text-decoration: none;
+  border: 2px solid #005755;
+  padding: 6px 0; /* Adjust vertical padding */
+  width: 100%; /* Make button occupy full width */
+  border-radius: 8px;
+  transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out, transform 0.4s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header button:hover {
+  background-color: #004242;
+  color: #ffffff;
+  transform: scale(1.1);
+  text-decoration: none;
+}
+
+header button:active {
+  transform: translateY(1px);
+  transition: transform 0.03s;
+}

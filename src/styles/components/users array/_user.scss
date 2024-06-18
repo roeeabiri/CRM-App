@@ -1,0 +1,36 @@
+/* User.css */
+.user {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.user:hover {
+    background-color: #f9f9f9;
+    transform: translateY(-3px);
+}
+
+.user h3 {
+    margin-bottom: 5px;
+    color: #005755;
+    font-size: 22px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.user p {
+    margin-bottom: 5px;
+    color: #666;
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+}
+
+@keyframes userFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.user {
+    animation: userFadeIn 0.5s ease-in-out;
+}
