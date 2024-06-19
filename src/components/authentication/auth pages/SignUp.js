@@ -1,10 +1,9 @@
 import React from "react";
-
-import { v4 as uuidv4 } from 'uuid'; // Import uuidv4 from uuid
-import '../../styles/components/forms/_signUp.scss'; // Import the SCSS file
-
+import { v4 as uuidv4 } from 'uuid';
+import '../../../styles/components/forms/_signUp.scss';
 import { connect } from 'react-redux';
-import { addUser } from "../../actions/users";
+import { addUser } from "../../../actions/users";
+import { useNavigate } from 'react-router-dom';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -104,10 +103,11 @@ class Signup extends React.Component {
       // Update state to indicate successful registration
       this.setState({ isRegistered: true });
 
-      this.props.addUser(newUser); // Add the user to the the database
+      this.props.addUser(newUser); // Add the user to the database
       alert("Registration successful!");
 
-      this.props.history.push("/login"); // Redirect to home
+      // Use withRouter to access history and navigate to login
+      this.props.navigate("/login");
     }
   };
 
@@ -175,10 +175,14 @@ class Signup extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addUser: (newUser) => dispatch(addUser(newUser)),
-  }
+const WithNavigation = (props) => { // Wraps around the class component and injects the navigate function as a prop
+  let navigate = useNavigate();
+  return <Signup {...props} navigate={navigate} />;
 }
 
-export default connect(null, mapDispatchToProps)(Signup);
+const mapDispatchToProps = (dispatch) => ({
+  addUser: (newUser) => dispatch(addUser(newUser)),
+});
+
+// Connect the WithNavigate function instead of Signup
+export default connect(null, mapDispatchToProps)(WithNavigation);

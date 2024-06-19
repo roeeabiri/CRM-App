@@ -10,6 +10,7 @@ body {
   background-size: cover;
   background-position: center;
   background-attachment: fixed; /* Keeps background fixed while content scrolls */
+  align-items: center;
 }
 
 /* Ensure body takes at least full viewport height */

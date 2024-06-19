@@ -1,7 +1,8 @@
 import React from "react";
-import '../../styles/components/forms/_logIn.scss'; // Import the SCSS file
+import '../../../styles/components/forms/_logIn.scss'; // Import the SCSS file
 import { connect } from 'react-redux';
-import { login } from '../../actions/auth'; // Import the login action creator
+import { login } from '../../../actions/auth'; // Import the login action creator
+import { useNavigate } from 'react-router-dom';
 
 class Login extends React.Component {
   constructor(props) {
@@ -66,10 +67,9 @@ class Login extends React.Component {
 
       if (loggedInUser) {
         // User is logged in successfully
-        // Perform further actions like setting user state or redirecting
         alert("Login successful!");
         this.props.login(); // Dispatch the login action
-        this.props.history.push("/secure");
+        this.props.navigate("/secure");
       } 
       else {
         alert("Invalid email or password.");
@@ -111,9 +111,14 @@ class Login extends React.Component {
   }
 }
 
+const WithNavigation = (props) => { // Wraps around the class component and injects the navigate function as a prop (updated syntax instead of this.props.history.push("/secure"))
+  let navigate = useNavigate();
+  return <Login navigate={navigate} {...props} />;
+}
+
 // Map dispatch functions to props
 const mapDispatchToProps = (dispatch) => ({
   login: () => dispatch(login()),
 });
 
-export default connect(null, mapDispatchToProps)(Login); // Connect component to Redux store and map login action
+export default connect(null, mapDispatchToProps)(WithNavigation); // Connect component to Redux store and map login action
