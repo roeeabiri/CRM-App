@@ -1,10 +1,11 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client'; // Import createRoot from react-dom/client
-import AppRouter from './routers/AppRouter';
+import AppRouter from './AppRouter';
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 import { Provider } from 'react-redux';
-import storeFunction from './store/configureStore';
+import storeFunction from './configureStore';
+import reportWebVitals from './reportWebVitals';
 
 const store = storeFunction();
 
@@ -21,9 +22,13 @@ store.subscribe(() => {
 
 const provider = (
   <Provider store={store}>
-    <AppRouter />
+    <React.StrictMode>
+      <AppRouter />
+    </React.StrictMode>
   </Provider>
 );
 
 const root = createRoot(document.getElementById('app')); // Create root using createRoot from react-dom/client
 root.render(provider); // Render your app using createRoot
+
+reportWebVitals();

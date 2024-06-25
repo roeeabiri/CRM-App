@@ -1,8 +1,8 @@
 import React from "react";
 import { v4 as uuidv4 } from 'uuid';
-import '../../../styles/components/forms/_signUp.scss';
+import '../../styles/components/forms/_signUp.scss';
 import { connect } from 'react-redux';
-import { addUser } from "../../../actions/users";
+import { addUser } from '../../actions/users';
 import { useNavigate } from 'react-router-dom';
 
 class Signup extends React.Component {

@@ -1,7 +1,8 @@
 import React from "react";
-import '../../../styles/components/forms/_logIn.scss'; // Import the SCSS file
+import axios from 'axios';
+import '../../styles/components/forms/_logIn.scss'; // Import the SCSS file
 import { connect } from 'react-redux';
-import { login } from '../../../actions/auth'; // Import the login action creator
+import { login } from '../../actions/auth'; // Import the login action creator
 import { useNavigate } from 'react-router-dom';
 
 class Login extends React.Component {
@@ -9,8 +10,10 @@ class Login extends React.Component {
     super(props);
 
     this.state = {
-      email: "",
-      password: "",
+      email: "bernhard@kaligon.com",
+      password: "112112!!",
+      response: null,
+      error: null,
       errors: {
         email: "",
         password: ""
@@ -28,6 +31,59 @@ class Login extends React.Component {
         [name]: "" // Clear error message when user starts typing
       }
     }));
+  };
+
+  handleLogin = async () => {
+    const { email, password } = this.state;
+
+    const query = `
+      mutation ($emailAddress: String, $password: String) {
+        login(emailAddress: $emailAddress, password: $password) {
+          message
+          token
+          profile {
+            lookupId
+            firstName
+            lastName
+            roleId
+            isDeleted
+            isActive
+            lastLoginTime
+            avatarUrl
+            selectedAccount {
+              lookupId
+              companyName
+              entityId
+            }
+          }
+        }
+      }
+    `;
+    
+    const variables = {
+      emailAddress: email,
+      password,
+    };
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const result = await axios.post(
+        'https://core.roadwarez.net:44401/api/graphql',
+        JSON.stringify({ query, variables }),
+        config
+      );
+      this.setState({ response: result.data, error: null });
+      // After successful login
+      this.props.login(); // Dispatch the login action
+      this.props.navigate("/secure");
+    } catch (err) {
+      this.setState({ error: err.message });
+    }
   };
 
   onSubmit = (e) => {
@@ -50,8 +106,7 @@ class Login extends React.Component {
     if (!password) {
       isValid = false;
       errors.password = "Password is required.";
-    }
-    else if (password.length < 6) {
+    } else if (password.length < 6) {
       isValid = false;
       errors.password = "Password must be at least 6 characters long.";
     }
@@ -59,26 +114,12 @@ class Login extends React.Component {
     this.setState({ errors, isValid }); // Update the state according to the changes
 
     if (isValid) {
-      // Get registered users from localStorage
-      const registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
-      
-      // Find user with matching email and password
-      const loggedInUser = registeredUsers.find(user => user.email === email && user.password === password);
-
-      if (loggedInUser) {
-        // User is logged in successfully
-        alert("Login successful!");
-        this.props.login(); // Dispatch the login action
-        this.props.navigate("/secure");
-      } 
-      else {
-        alert("Invalid email or password.");
-      }
+      this.handleLogin();
     }
   };
 
   render() {
-    const { email, password, errors } = this.state;
+    const { email, password, errors, response, error } = this.state;
 
     return (
       <div className="login-container">
@@ -106,6 +147,18 @@ class Login extends React.Component {
           <br />
           <button type="submit">Login</button>
         </form>
+        {response && (
+          <div>
+            <h3>Response</h3>
+            <pre>{JSON.stringify(response, null, 2)}</pre>
+          </div>
+        )}
+        {error && (
+          <div>
+            <h3>Error</h3>
+            <pre>{error}</pre>
+          </div>
+        )}
       </div>
     );
   }
