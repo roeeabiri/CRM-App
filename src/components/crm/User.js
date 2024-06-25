@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import '../../styles/components/users array/_user.scss';
+import '../../styles/components/pages/securedPage/users array/_user.scss';
 
 const User = ({ id, name, lastName, phone, email, password }) => (
   <div>

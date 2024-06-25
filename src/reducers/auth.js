@@ -1,6 +1,9 @@
+
+
 // reducers/authReducer.js
 const initialState = {
     isLoggedIn: false,
+    token: null,
 };
   
 const authReducer = (state = initialState, action) => {
@@ -9,12 +12,14 @@ const authReducer = (state = initialState, action) => {
         return {
           ...state,
           isLoggedIn: true,
+          token: action.token,
         };
 
       case 'LOGOUT':
         return {
           ...state,
           isLoggedIn: false,
+          token: null,
         };
 
       default:
@@ -22,4 +27,4 @@ const authReducer = (state = initialState, action) => {
     }
 };
   
-  export default authReducer;
+export default authReducer;

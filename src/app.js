@@ -1,11 +1,11 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client'; // Import createRoot from react-dom/client
-import AppRouter from './AppRouter';
+import AppRouter from './components/non-visual-components/AppRouter';
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 import { Provider } from 'react-redux';
-import storeFunction from './configureStore';
-import reportWebVitals from './reportWebVitals';
+import storeFunction from './components/non-visual-components/configureStore';
+import reportWebVitals from './components/non-visual-components/reportWebVitals';
 
 const store = storeFunction();
 

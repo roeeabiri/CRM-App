@@ -37,7 +37,7 @@ class Login extends React.Component {
     const { email, password } = this.state;
 
     const query = `
-      mutation ($emailAddress: String, $password: String) {
+      mutation Login($emailAddress: String!, $password: String!) {
         login(emailAddress: $emailAddress, password: $password) {
           message
           token
@@ -77,10 +77,14 @@ class Login extends React.Component {
         JSON.stringify({ query, variables }),
         config
       );
-      this.setState({ response: result.data, error: null });
-      // After successful login
-      this.props.login(); // Dispatch the login action
-      this.props.navigate("/secure");
+
+      if (result.data.errors) {
+        this.setState({ error: result.data.errors[0].message });
+      } else {
+        const token = result.data.data.login.token;
+        this.props.login(token); // Dispatch the login action with token
+        this.props.navigate("/secure");
+      }
     } catch (err) {
       this.setState({ error: err.message });
     }
@@ -164,14 +168,14 @@ class Login extends React.Component {
   }
 }
 
-const WithNavigation = (props) => { // Wraps around the class component and injects the navigate function as a prop (updated syntax instead of this.props.history.push("/secure"))
+const WithNavigation = (props) => { 
   let navigate = useNavigate();
   return <Login navigate={navigate} {...props} />;
 }
 
 // Map dispatch functions to props
 const mapDispatchToProps = (dispatch) => ({
-  login: () => dispatch(login()),
+  login: (token) => dispatch(login(token)),
 });
 
-export default connect(null, mapDispatchToProps)(WithNavigation); // Connect component to Redux store and map login action
+export default connect(null, mapDispatchToProps)(WithNavigation);

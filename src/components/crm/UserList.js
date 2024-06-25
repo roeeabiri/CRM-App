@@ -5,7 +5,7 @@ import User from './User';
 
 import { connect } from 'react-redux';
 
-import '../../styles/components/users array/_userList.scss';
+import '../../styles/components/pages/securedPage/users array/_userList.scss';
 
 const UserList = (props) => {
     // Check if registeredUsers is defined before mapping over it
