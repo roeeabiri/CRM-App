@@ -14,6 +14,7 @@ const ProtectSecurePage = ({ children, isLoggedIn }) => { // using children allo
 
 const mapStateToProps = (state) => ({
     isLoggedIn: state.auth.isLoggedIn,
+    token: state.auth.token,
 });
 
 export default connect(mapStateToProps)(ProtectSecurePage);

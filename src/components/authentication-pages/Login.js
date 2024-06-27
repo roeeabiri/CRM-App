@@ -1,8 +1,8 @@
 import React from "react";
 import axios from 'axios';
-import '../../styles/components/forms/_logIn.scss'; // Import the SCSS file
+import '../../styles/components/forms/_logIn.scss';
 import { connect } from 'react-redux';
-import { login } from '../../actions/auth'; // Import the login action creator
+import { login } from '../../actions/auth';
 import { useNavigate } from 'react-router-dom';
 
 class Login extends React.Component {
@@ -12,7 +12,6 @@ class Login extends React.Component {
     this.state = {
       email: "bernhard@kaligon.com",
       password: "112112!!",
-      response: null,
       error: null,
       errors: {
         email: "",
@@ -35,7 +34,7 @@ class Login extends React.Component {
 
   handleLogin = async () => {
     const { email, password } = this.state;
-
+  
     const query = `
       mutation Login($emailAddress: String!, $password: String!) {
         login(emailAddress: $emailAddress, password: $password) {
@@ -59,43 +58,44 @@ class Login extends React.Component {
         }
       }
     `;
-    
+  
     const variables = {
       emailAddress: email,
-      password,
+      password: password,
     };
-
+  
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
-
+  
     try {
-      const result = await axios.post(
+      const response = await axios.post(
         'https://core.roadwarez.net:44401/api/graphql',
         JSON.stringify({ query, variables }),
         config
       );
-
-      if (result.data.errors) {
-        this.setState({ error: result.data.errors[0].message });
+  
+      if (response.data.errors) {
+        this.setState({ error: response.data.errors[0].message });
       } else {
-        const token = result.data.data.login.token;
+        const token = response.data.data.login.token; // Correct way to access the token
+        console.log(token);
+        console.log(response.data);
         this.props.login(token); // Dispatch the login action with token
-        this.props.navigate("/secure");
+        this.props.navigate("/secure"); // Navigate to secure page after successful login
       }
     } catch (err) {
       this.setState({ error: err.message });
     }
-  };
-
+  };  
+  
   onSubmit = (e) => {
     e.preventDefault();
 
     const { email, password } = this.state;
 
-    // Validation rules
     let errors = {};
     let isValid = true;
 
@@ -115,7 +115,7 @@ class Login extends React.Component {
       errors.password = "Password must be at least 6 characters long.";
     }
 
-    this.setState({ errors, isValid }); // Update the state according to the changes
+    this.setState({ errors, isValid });
 
     if (isValid) {
       this.handleLogin();
@@ -123,7 +123,7 @@ class Login extends React.Component {
   };
 
   render() {
-    const { email, password, errors, response, error } = this.state;
+    const { email, password, errors, error } = this.state;
 
     return (
       <div className="login-container">
@@ -151,12 +151,6 @@ class Login extends React.Component {
           <br />
           <button type="submit">Login</button>
         </form>
-        {response && (
-          <div>
-            <h3>Response</h3>
-            <pre>{JSON.stringify(response, null, 2)}</pre>
-          </div>
-        )}
         {error && (
           <div>
             <h3>Error</h3>
@@ -173,7 +167,6 @@ const WithNavigation = (props) => {
   return <Login navigate={navigate} {...props} />;
 }
 
-// Map dispatch functions to props
 const mapDispatchToProps = (dispatch) => ({
   login: (token) => dispatch(login(token)),
 });

@@ -1,0 +1,32 @@
+# schema.graphql
+
+type Telemetry {
+    createdAt: String
+}
+
+type Device {
+    lookupId: ID!
+    deviceName: String!
+    machineId: String!
+    status: String!
+    country: String!
+    lastTelemetry: Telemetry
+}
+
+type DeviceList {
+    count: Int
+    results: [Device]
+}
+
+type Query {
+    fetchDevices(
+        accountLookupId: String
+        startDate: String
+        endDate: String
+        filterType: [Int]
+        isOnline: Boolean
+        orderBy: String
+        limit: Int
+        offset: Int
+    ): DeviceList
+}
